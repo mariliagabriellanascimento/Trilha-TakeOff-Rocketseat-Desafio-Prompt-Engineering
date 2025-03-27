@@ -1,7 +1,6 @@
-# Trilha-TakeOff-Rocketseat-Desafio-Prompt-Engineering
-Desafio - Prompt Engineering
-
-Respostas do Desafio Prático de Prompt Engineering
+# Trilha-TakeOff-Rocketseat 
+## Desafio - Prompt Engineering
+#### Respostas do Desafio Prático de Prompt Engineering
 ### Questões:
 
 1. Utilize uma ferramenta de IA Generativa para saber como o algoritmo de Ray Tracing calcula a cor de um pixel em uma imagem renderizada
