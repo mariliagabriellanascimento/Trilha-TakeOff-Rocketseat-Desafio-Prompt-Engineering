@@ -1,57 +1,42 @@
 Entrada:
 Como o algoritmo de Ray Tracing calcula a cor de um pixel em uma imagem renderizada.
+
 Saída:
 O algoritmo de Ray Tracing (ou Traçado de Raios) é uma técnica de renderização utilizada para gerar imagens realistas simulando o comportamento da luz ao interagir com os objetos em uma cena. Para calcular a cor de um pixel, o Ray Tracing segue um processo que envolve traçar raios de luz a partir da câmera (ou da tela, dependendo da implementação) para os objetos na cena, e então calcular como esses raios interagem com a cena para determinar a cor final.
-
 Aqui está um passo a passo básico de como o Ray Tracing calcula a cor de um pixel:
 
 1. Lançamento de Raios
 Para cada pixel da imagem, um raio é lançado a partir da câmera na direção do ponto correspondente na cena 3D.
-
 Este raio é denominado raio primário (ou ray), e sua trajetória é determinada pela posição e direção do pixel na tela e pela configuração da câmera.
 
 2. Interseção com Objetos
 O algoritmo verifica se o raio colide com algum objeto na cena. Isso é feito resolvendo equações geométricas para encontrar onde e quando o raio intercepta a superfície de um objeto.
-
 Quando o raio atinge um objeto, o ponto de interseção é identificado, o que permite calcular propriedades como a normal da superfície nesse ponto.
 
 3. Cálculo da Iluminação
 A cor do ponto de interseção é determinada com base em fontes de luz na cena e nas propriedades do material do objeto.
-
 O algoritmo considera a iluminação direta, que é calculada usando modelos de iluminação (como o modelo de Phong ou Lambertiano). Isso inclui:
-
 Luz Difusa: A luz que incide diretamente sobre a superfície, de forma uniforme.
-
 Luz Especular: Refletida pela superfície e que pode criar brilhos ou reflexos.
-
 Sombra: Se o ponto de interseção estiver na sombra de um objeto (ou seja, se houver algum objeto bloqueando a luz da fonte), a cor será atenuada.
 
 4. Reflexões e Refrações
 Se o objeto tiver características como reflexão ou refração, o algoritmo pode lançar raios adicionais. Por exemplo:
-
 Reflexão: Raios são lançados para o ambiente ao redor para simular reflexos (como em espelhos ou superfícies brilhantes).
-
 Refração: Raios podem ser lançados para simular como a luz se curva ao passar por materiais transparentes ou translúcidos, como vidro ou água.
-
 Para cada um desses raios adicionais, o algoritmo repete o processo de verificação de interseção e cálculo da iluminação.
 
 5. Sombreamento
 A cor do pixel é calculada combinando todos os efeitos de iluminação e as interações de luz com os materiais, como a textura e o reflexo/refração.
-
 O sombreamento é o processo de determinar como a luz afeta a aparência do ponto, levando em consideração fatores como a cor do material, a intensidade da luz e as sombras.
 
 6. Cálculo da Cor Final
 A cor final de cada pixel é determinada pela soma dos efeitos de luz difusa, especular, reflexões, refrações e sombras.
-
 Além disso, podem ser aplicados efeitos adicionais, como anti-aliasing (para suavizar bordas), efeitos de profundidade de campo e outros filtros que podem melhorar a qualidade visual da imagem.
 
 Resumo
 O Ray Tracing simula a trajetória dos raios de luz desde a câmera, verificando onde eles intersectam os objetos na cena.
-
 Em cada ponto de interseção, o algoritmo calcula a iluminação com base nas fontes de luz e nas propriedades do material.
-
 Reflexões e refrações são tratadas lançando raios adicionais para simular esses efeitos.
-
 A cor de um pixel é composta pela combinação de luz direta, reflexões, refrações e sombras, oferecendo uma imagem altamente realista.
-
 Essa técnica, embora muito precisa e realista, pode ser computacionalmente cara, pois exige o rastreamento de muitos raios para cada pixel, especialmente em cenas complexas.
