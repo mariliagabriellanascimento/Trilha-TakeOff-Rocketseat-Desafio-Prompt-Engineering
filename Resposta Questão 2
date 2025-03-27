@@ -2,14 +2,12 @@ Entrada:
 Faça decomposição numérica de 142.981 passo a passo como no exemplo abaixo.
 
 Exemplos:
-483 = 400 + 80 + 3
-7840 = 7000 + 800 + 40 + 0
+545 = 500 + 40 + 5
+9540 = 9000 + 500 + 40 + 0
 
 Saída:
 Claro! Vamos fazer a decomposição numérica de 142.981 passo a passo, assim como no exemplo.
-
 142.981 = 100.000 + 40.000 + 2.000 + 900 + 80 + 1
 
 Portanto, a decomposição de 142.981 é:
-
 100.000 + 40.000 + 2.000 + 900 + 80 + 1
