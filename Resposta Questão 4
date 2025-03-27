@@ -1,0 +1,123 @@
+Entrada:
+Você vai criar um endpoint utilizando o framework FastAPI. Esse endpoint será responsável por validar os dados de um objeto do tipo Item e, após validação, adicionar um campo chamado uuid. Esse campo deve ser um identificador único gerado automaticamente para cada requisição.
+
+O objetivo é criar um endpoint que receba um objeto do tipo Item, valide os dados e, se estiverem corretos, adicione um campo uuid único ao objeto. Esse uuid será gerado dinamicamente para cada requisição feita ao servidor.
+
+Estrutura do Item:
+nome: Uma string com máximo de 25 caracteres.
+valor: Um número decimal (float).
+data: Uma data no formato YYYY-MM-DD, que não pode ser superior à data atual.
+Requisitos de validação:
+O campo nome deve ser uma string com no máximo 25 caracteres.
+O campo valor deve ser um número decimal (float).
+O campo data deve ser uma data que não ultrapasse a data atual (a data de hoje).
+Adição do campo uuid:
+Após a validação dos dados, o endpoint deve adicionar um campo chamado uuid ao objeto. Esse campo deve ser gerado automaticamente e deve ser único para cada requisição.
+O que será retornado:
+O objeto Item com a validação aplicada e o campo uuid adicionado. Caso algum dado seja inválido, o sistema deve informar o erro.
+
+Caso o código gerado não esteja correto ou precise de ajustes, forneça explicações claras sobre o que foi feito.
+A solução pode ser ajustada de acordo com a necessidade, realizando correções iterativas para garantir que o código esteja funcionando como esperado.
+A cada erro de validação ou problema no código, ajude a corrigir com explicações simples e possíveis melhorias.
+
+Saída:
+Aqui está a implementação de um endpoint usando o framework FastAPI, que recebe um objeto Item, valida os dados de acordo com as especificações fornecidas, e adiciona um campo uuid único à resposta:
+
+1. Instalação das dependências
+Primeiro, instale as dependências necessárias para o FastAPI e Uvicorn:
+
+bash
+Copiar
+pip install fastapi uvicorn
+2. Implementação do Código
+python
+Copiar
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field, validator
+from datetime import date
+import uuid
+
+# Criação do aplicativo FastAPI
+app = FastAPI()
+
+# Definição do modelo Item com Pydantic
+class Item(BaseModel):
+    nome: str = Field(..., max_length=25)
+    valor: float
+    data: date
+
+    # Validação do campo 'data'
+    @validator('data')
+    def validate_data(cls, v):
+        if v > date.today():
+            raise ValueError('A data não pode ser superior à data atual.')
+        return v
+
+# Endpoint para validar e adicionar o campo uuid
+@app.post("/item/")
+async def create_item(item: Item):
+    # Gerando o UUID único para cada requisição
+    item_uuid = str(uuid.uuid4())
+    
+    # Retornando o objeto com o uuid gerado
+    return {"nome": item.nome, "valor": item.valor, "data": item.data, "uuid": item_uuid}
+Explicação do Código:
+Classe Item:
+
+Usamos o pydantic.BaseModel para definir a estrutura dos dados de entrada. Isso nos permite aproveitar a validação automática dos campos.
+
+O campo nome é uma string com no máximo 25 caracteres.
+
+O campo valor é um número decimal (float).
+
+O campo data é validado usando o @validator, garantindo que a data não seja superior à data atual.
+
+Endpoint /item/:
+
+Esse endpoint recebe um objeto Item, valida os dados automaticamente (graças ao Pydantic).
+
+Se a validação for bem-sucedida, geramos um UUID único para essa requisição usando a função uuid.uuid4().
+
+O objeto retornado contém os dados originais do Item e o novo campo uuid.
+
+Validação da Data:
+
+A data é verificada para garantir que não seja superior à data atual. Isso é feito dentro do método @validator no campo data.
+
+Execução do Servidor:
+
+Para rodar a aplicação, basta executar o comando abaixo no terminal:
+
+bash
+Copiar
+uvicorn nome_do_arquivo:app --reload
+Isso vai iniciar o servidor FastAPI no endereço http://127.0.0.1:8000.
+
+Testando o Endpoint:
+Você pode testar a API com uma ferramenta como o Postman ou usando o curl. Um exemplo de requisição para testar seria:
+
+POST para http://127.0.0.1:8000/item/:
+
+json
+Copiar
+{
+  "nome": "Produto X",
+  "valor": 199.99,
+  "data": "2025-03-27"
+}
+Resposta esperada:
+
+json
+Copiar
+{
+  "nome": "Produto X",
+  "valor": 199.99,
+  "data": "2025-03-27",
+  "uuid": "e27b7be0-1b0f-402f-b2c8-3fca72cb3a2b"
+}
+Possíveis Ajustes e Melhorias:
+Erro de Validação: Se o campo data for maior do que a data atual ou se nome ultrapassar 25 caracteres, o FastAPI já irá automaticamente retornar um erro de validação detalhado.
+
+UUID no formato desejado: O UUID gerado é único por requisição e pode ser ajustado caso você precise de um formato diferente.
+
+Se você encontrar algum erro ou se precisar de alguma melhoria específica, posso te ajudar a corrigir ou ajustar o código!
