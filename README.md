@@ -1,4 +1,4 @@
-# Trilha-TakeOff-Rocketseat 
+# Trilha TakeOff da Rocketseat 
 ## Desafio - Prompt Engineering
 #### Respostas do Desafio Prático de Prompt Engineering
 ### Questões:
